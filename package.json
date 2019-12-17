@@ -1,0 +1,10 @@
+{
+  "name": "clone_juntube",
+  "version": "1.0.0",
+  "description": "Cloning Youtube with Vanilla and NodeJS",
+  "main": "index.js",
+  "author": "Juno",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
