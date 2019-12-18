@@ -1,10 +1,10 @@
 doctype html
 html
     head
-        title JunTube
+        script(src="https://kit.fontawesome.com/76a0a06478.js", crossorigin="anonymous")
+        title #{pageTitle} | #{siteName}
     body
-        header
+        include ../partials/header
         main
             block content
-        footer
-            span &copy; JunTube
+        include ../partials/footer
