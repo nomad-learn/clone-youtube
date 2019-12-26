@@ -1,0 +1,21 @@
+.form-container{
+    a{
+        background-color: rgb(223, 70, 50);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40%;
+        padding: 10px 0;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        outline: none;
+        cursor: pointer;
+        margin-bottom: 10px;
+        font-weight: 600;
+        box-shadow: 3px 3px 5px $grey;
+    }
+    a:active{
+        background-color: rgb(143, 14, 14);
+    }
+}

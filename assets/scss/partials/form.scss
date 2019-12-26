@@ -31,7 +31,19 @@
         }
         input[type="submit"]:focus {
             background-color: rgb(121, 119, 119);
-            }
-            
+        }
+        textarea{
+            border: none;
+            border-radius: 5px;
+            height: fit-content;
+            margin-bottom: 15px;
+            box-shadow: 3px 3px 5px $grey;
+            padding: 10px 20px;
+        }
+        label {
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: 600;
+        }   
     }
 }
