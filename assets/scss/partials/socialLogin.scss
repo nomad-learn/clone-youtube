@@ -15,13 +15,13 @@
             color: white;
             outline: none;
             cursor: pointer;
-            margin-bottom: 2px;
+            margin-bottom: 10px;
             font-weight: 600;
             &:nth-child(1){
-                background-color: rgb(146, 79, 209);
+                background-color: rgb(39, 38, 39);
             }
             &:last-child{
-                background-color: rgb(99, 99, 243);
+                background-color: rgb(65, 73, 150);
             }
             i{
                 font-size: 20px;
