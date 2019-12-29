@@ -12,10 +12,12 @@
         input{
             display: block;
             border-radius: 5px;
-            padding: 10px 20px;
-            margin-bottom: 25px;
-            background-color: white;
-            box-shadow: 3px 3px 5px $grey;
+            &:not([type="file"]){
+                padding: 10px 20px;
+                margin-bottom: 25px;
+                background-color: white;
+                box-shadow: 3px 3px 5px $grey;
+            }
             &::placeholder{
                 font-weight: 500;
             }
@@ -40,10 +42,15 @@
             box-shadow: 3px 3px 5px $grey;
             padding: 10px 20px;
         }
-        label {
-            margin-bottom: 10px;
-            font-size: 15px;
-            font-weight: 600;
-        }   
+        .form-container__file-upload{
+            display: flex;
+            margin-bottom: 12px;
+            align-items: center;
+            label {
+                font-weight: 600;
+                font-size: 16px;
+                margin-right: 5px;
+            }
+        }
     }
 }

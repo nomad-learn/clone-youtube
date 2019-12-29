@@ -3,7 +3,7 @@ extends layouts/main
 block content
     .video__container
         .video__player
-            video(src=`/${video.fileUrl}`, controls=true)
+            video(src=`/${video.fileUrl}#t=4`, controls=true)
         .video__info
             a(href=routes.editVideo(video.id)).edit-btn Edit video
             h6.video__createdAt= video.createdAt
