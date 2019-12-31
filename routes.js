@@ -11,6 +11,7 @@ const USERS = "/users";
 const CHANGE_PASSWORD = "/change-password";
 const EDIT_PROFILE = "/edit-profile";
 const USER_DETAIL = "/:id";
+const ME = "/me";
 
 // Videos
 
@@ -35,10 +36,10 @@ const routes = {
   userDetail: id => {
     if (id) {
       return `/users/${id}`;
-    } else {
-      return USER_DETAIL;
     }
+    return USER_DETAIL;
   },
+  me: ME,
   editProfile: EDIT_PROFILE,
   changePassword: CHANGE_PASSWORD,
   videos: VIDEOS,
@@ -46,23 +47,20 @@ const routes = {
   videoDetail: id => {
     if (id) {
       return `/videos/${id}`;
-    } else {
-      return VIDEO_DETAIL;
     }
+    return VIDEO_DETAIL;
   },
   editVideo: id => {
     if (id) {
       return `/videos/${id}/edit`;
-    } else {
-      return EDIT_VIDEO;
     }
+    return EDIT_VIDEO;
   },
   deleteVideo: id => {
     if (id) {
       return `/videos/${id}/delete`;
-    } else {
-      return DELETE_VIDEO;
     }
+    return DELETE_VIDEO;
   },
   github: GITHUB,
   githubCallback: GITHUB_CALLBACK
