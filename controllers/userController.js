@@ -59,7 +59,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
     });
     return cb(null, newUser);
   } catch (error) {
-    return cb(error, null);
+    return cb(error);
   }
 };
 
@@ -89,11 +89,22 @@ export const facebookLoginCallback = async (_, __, profile, cb) => {
     });
     return cb(null, newUser);
   } catch (error) {
-    return cb(error, null);
+    return cb(error);
   }
 };
 
 export const postFacebookLogin = (req, res) => {
+  res.redirect(routes.home);
+};
+
+//  Kakao authentication
+export const kakaoLogin = passport.authenticate("kakao");
+
+export const kakaoLoginCallback = (accessToken, refreshToken, profile, cb) => {
+  console.log(accessToken, refreshToken, profile, cb);
+};
+
+export const postKakaoLogin = (req, res) => {
   res.redirect(routes.home);
 };
 

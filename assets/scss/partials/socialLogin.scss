@@ -20,8 +20,11 @@
             &:nth-child(1){
                 background-color: rgb(39, 38, 39);
             }
-            &:last-child{
+            &:nth-child(2){
                 background-color: rgb(65, 73, 150);
+            }
+            &:last-child{
+                background-color: rgb(252, 210, 26)
             }
             i{
                 font-size: 20px;
