@@ -1,0 +1,12 @@
+.user-profile{
+    width: 500px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    .user-profile__header{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+}
