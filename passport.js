@@ -41,7 +41,9 @@ passport.use(
     {
       clientID: process.env.KAKAO_ID,
       clientSecret: process.env.KAKAO_SECRET,
-      callbackURL: `http://localhost:4000${routes.kakaoCallback}`
+      callbackURL: `http://localhost:4000${routes.kakaoCallback}`,
+      profileFields: ["id", "displayName", "email", "profile_image"],
+      scope: ["profile", "account_email"]
     },
     kakaoLoginCallback
   )

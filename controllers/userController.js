@@ -38,6 +38,7 @@ export const postLogin = passport.authenticate("local", {
 });
 
 //  github authentication
+
 export const githubLogin = passport.authenticate("github");
 
 export const githubLoginCallback = async (_, __, profile, cb) => {
@@ -68,9 +69,11 @@ export const postGithubLogin = (req, res) => {
 };
 
 //  facebook authentication
+
 export const facebookLogin = passport.authenticate("facebook");
 
 export const facebookLoginCallback = async (_, __, profile, cb) => {
+  console.log(profile);
   const {
     _json: { id, name, email }
   } = profile;
@@ -78,6 +81,7 @@ export const facebookLoginCallback = async (_, __, profile, cb) => {
     const user = await User.findOne({ email });
     if (user) {
       user.facebookId = id;
+      user.avatarUrl = `https://graph.facebook.com/${id}/picture?type=large`;
       user.save();
       return cb(null, user);
     }
@@ -98,10 +102,36 @@ export const postFacebookLogin = (req, res) => {
 };
 
 //  Kakao authentication
-export const kakaoLogin = passport.authenticate("kakao");
 
-export const kakaoLoginCallback = (accessToken, refreshToken, profile, cb) => {
-  console.log(accessToken, refreshToken, profile, cb);
+export const kakaoLogin = passport.authenticate("kakao", {
+  failureRedirect: "#!/login"
+});
+
+export const kakaoLoginCallback = async (_, __, profile, cb) => {
+  const {
+    _json: {
+      id,
+      properties: { nickname, profile_image },
+      kakao_account: { email }
+    }
+  } = profile;
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      user.kakaoId = id;
+      user.save();
+      return cb(null, user);
+    }
+    const newUser = await User.create({
+      email,
+      name: nickname,
+      kakaoId: id,
+      avatarUrl: profile_image
+    });
+    return cb(null, newUser);
+  } catch (error) {
+    return cb(error);
+  }
 };
 
 export const postKakaoLogin = (req, res) => {
