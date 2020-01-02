@@ -40,8 +40,11 @@ export const postUpload = async (req, res) => {
   const newVideo = await Video.create({
     fileUrl: path,
     title,
-    description
+    description,
+    creator: req.user.id
   });
+  req.user.videos.push(newVideo.id);
+  req.user.save();
   res.redirect(routes.videoDetail(newVideo.id));
 };
 
@@ -50,7 +53,7 @@ export const videoDetail = async (req, res) => {
     const {
       params: { id }
     } = req;
-    const video = await Video.findById(id);
+    const video = await Video.findById(id).populate("creator");
     res.render("videoDetail", { pageTitle: "Video Detail", video });
   } catch (error) {
     res.redirect(routes.home);
@@ -89,8 +92,7 @@ export const deleteVideo = async (req, res) => {
     //  upload/videos data remove code
     const fileUrl = await Video.find({ _id: id }, "fileUrl");
     const fileUrlPath = fileUrl[0].fileUrl;
-    const path = fileUrlPath;
-    fs.unlinkSync(path);
+    fs.unlinkSync(fileUrlPath);
     //  mongodb data remove code
     await Video.findOneAndRemove({ _id: id });
   } catch (error) {
