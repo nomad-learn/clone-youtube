@@ -1,3 +1,4 @@
+import fs from "fs";
 import routes from "../routes";
 import Video from "../models/Video";
 
@@ -85,6 +86,12 @@ export const deleteVideo = async (req, res) => {
     params: { id }
   } = req;
   try {
+    //  upload/videos data remove code
+    const fileUrl = await Video.find({ _id: id }, "fileUrl");
+    const fileUrlPath = fileUrl[0].fileUrl;
+    const path = fileUrlPath;
+    fs.unlinkSync(path);
+    //  mongodb data remove code
     await Video.findOneAndRemove({ _id: id });
   } catch (error) {
     console.log(error);
