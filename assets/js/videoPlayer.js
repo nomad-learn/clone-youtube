@@ -6,6 +6,7 @@ const fullscreenBtn = document.getElementById("jsFullscreenBtn");
 const currentTime = document.getElementById("jsCurrentTime");
 const totalTime = document.getElementById("jsTotalTime");
 const volumeRange = document.getElementById("jsVolumeRange");
+const controlBox = document.getElementById("jsControlBox");
 
 videoPlayer.volume = 0.5;
 
@@ -32,6 +33,14 @@ function handleVolumeBtn() {
   }
 }
 
+function controlBoxHidden() {
+  if (videoContainer.className === "videoPlayer hidden") {
+    videoContainer.classList.remove("hidden");
+  } else {
+    videoContainer.classList.add("hidden");
+  }
+}
+
 function handleFullscreenBtn() {
   if (document.fullscreenElement) {
     document.exitFullscreen();
@@ -39,6 +48,12 @@ function handleFullscreenBtn() {
   } else {
     videoContainer.requestFullscreen();
     fullscreenBtn.innerHTML = '<i class="fas fa-compress-alt"></i>';
+    videoPlayer.addEventListener("click", controlBoxHidden);
+    fullscreenBtn.addEventListener("pointerup", e => {
+      if (e.type === "pointerup") {
+        videoPlayer.removeEventListener("click", controlBoxHidden);
+      }
+    });
   }
 }
 
@@ -76,6 +91,11 @@ function handleVolumeControls() {
   volumeRange.addEventListener("pointerup", () => {
     volumeRange.removeEventListener("mousemove", handleVolumeControls);
     videoPlayer.volume = volumeRange.value;
+    if (videoPlayer.volume === 0) {
+      volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+    } else {
+      volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+    }
   });
 }
 

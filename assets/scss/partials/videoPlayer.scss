@@ -13,7 +13,7 @@
         opacity: 0;
         transition: opacity 0.5s linear; 
         position: absolute;
-        background-color: rgba(29, 28, 28, 0.733);
+        background-color: black;
         width: 100%;
         bottom: 0;
         display: grid;
@@ -52,6 +52,13 @@
             i{
                 cursor: pointer;
             }
+        }
+    }
+}
+.videoPlayer.hidden{
+    &:hover{
+        .videoPlayer__controls{
+            opacity: 0;
         }
     }
 }
