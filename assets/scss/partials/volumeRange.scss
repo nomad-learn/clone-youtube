@@ -1,8 +1,21 @@
 .videoPlayer__volumeRange-box{
+    position: absolute;
+    left: -27px;
+    bottom: 43px;
+    margin: auto;
     transform: rotate(0.75turn);
-    max-width: 60px;
-    height: 10px;
+    width: 70px;
+    height: 30px;
+    background-color: rgba(29, 28, 28, 0.733);
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s linear;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
     .video__volume-range{
-        width: 100%;
+        width: 90%;
+        opacity: 0.8;
     }
 }

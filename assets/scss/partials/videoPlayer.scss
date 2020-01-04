@@ -23,9 +23,20 @@
         .videoPlayer__column{
             &:first-child{
                 justify-self: flex-start;
+                position: relative;
                 span:not(:last-child){
                     margin-right: 10px;
                     font-size: 17px;
+                }
+            }
+            .volume__box{
+                display: inline;
+                position: relative;
+                &:hover{
+                    .videoPlayer__volumeRange-box{
+                        opacity: 1;
+                        pointer-events: unset;
+                    }
                 }
             }
             &:nth-child(2){
