@@ -6,6 +6,7 @@
     }
     position: relative;
     video{
+        width: 100%;
         max-width: 100%;
     }
     .videoPlayer__controls{
@@ -14,8 +15,7 @@
         position: absolute;
         background-color: rgba(29, 28, 28, 0.733);
         width: 100%;
-        bottom: 20px;
-        left: 0;
+        bottom: 0;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         padding: 10px 20px;
