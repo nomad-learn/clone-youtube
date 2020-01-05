@@ -6,7 +6,6 @@ const fullscreenBtn = document.getElementById("jsFullscreenBtn");
 const currentTime = document.getElementById("jsCurrentTime");
 const totalTime = document.getElementById("jsTotalTime");
 const volumeRange = document.getElementById("jsVolumeRange");
-const controlBox = document.getElementById("jsControlBox");
 
 videoPlayer.volume = 0.5;
 
@@ -100,7 +99,12 @@ function handleVolumeControls() {
 }
 
 function handleVolumeBtnClick() {
-  volumeRange.addEventListener("mousemove", handleVolumeControls);
+  if (videoPlayer.muted) {
+    videoPlayer.muted = false;
+    volumeRange.addEventListener("mousemove", handleVolumeControls);
+  } else {
+    volumeRange.addEventListener("mousemove", handleVolumeControls);
+  }
 }
 
 function handleVideoEnd() {

@@ -1,7 +1,7 @@
 mixin videoPlayer(video={})
     .videoPlayer#jsVideoPlayer
         video(src=`/${video.src}#t=5`)
-        .videoPlayer__controls#jsControlBox
+        .videoPlayer__controls
             .videoPlayer__column
                 .volume__box
                     span#jsVolumeBtn
