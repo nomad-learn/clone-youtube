@@ -10,9 +10,9 @@ block content
             if loggedUser !== null
                 if loggedUser.id === video.creator.id
                     a(href=routes.editVideo(video.id)).edit-btn Edit video
-            h6.video__createdAt= video.createdAt
-            h5.video__title= video.title
-            span.video__view= video.view
+            h6.video__createdAt=video.createdAt 
+            span.video__view=`views ${video.view}` 
+            h5.video__title=video.title
             p.video__description= video.description
         .video__author
             |Upload by 
@@ -22,3 +22,9 @@ block content
                 span.video__comments-number #{video.comments.length} comment
             else 
                 span.video__comments-number #{video.comments.length} comments
+            form.add__comment#jsAddComment
+                input(type="text", placeholder="Add Comment")
+            ul.video__comments-list
+                each comment in video.comments
+                    li
+                        span=comment.text

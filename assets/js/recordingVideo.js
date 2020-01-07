@@ -20,6 +20,7 @@ function handleSaveVideo(event) {
 function handleStopRecording() {
   mediaRecorder.stop();
   recordingStartBtn.removeEventListener("click", handleStopRecording);
+  // eslint-disable-next-line no-use-before-define
   recordingStartBtn.addEventListener("click", handleRecordingClick);
   recordingStartBtn.innerHTML = "start recording";
   recordingStartBtn.style.backgroundColor = "rgb(50, 113, 206)";
