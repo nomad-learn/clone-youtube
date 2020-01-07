@@ -3,20 +3,38 @@ const videoPreview = document.getElementById("jsRecordingPreview");
 const recordingStartBtn = document.getElementById("jsRecordingBtn");
 
 let streamObject;
+let mediaRecorder;
+let stream;
 
 function handleSaveVideo(event) {
-  console.log(event);
+  const { data: videoFile } = event;
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(videoFile);
+  link.download = "Recording.mp4";
+  document.body.appendChild(link);
+  link.click();
+  streamObject.getVideoTracks()[0].stop();
+  mediaRecorder.removeEventListener("dataavailable", handleSaveVideo);
+}
+
+function handleStopRecording() {
+  mediaRecorder.stop();
+  recordingStartBtn.removeEventListener("click", handleStopRecording);
+  recordingStartBtn.addEventListener("click", handleRecordingClick);
+  recordingStartBtn.innerHTML = "start recording";
+  recordingStartBtn.style.backgroundColor = "rgb(50, 113, 206)";
 }
 
 function recordingVideo() {
-  const mediaRecorder = new MediaRecorder(streamObject);
+  mediaRecorder = new MediaRecorder(streamObject);
   mediaRecorder.start();
   mediaRecorder.addEventListener("dataavailable", handleSaveVideo);
+  recordingStartBtn.addEventListener("click", handleStopRecording);
 }
 
 async function handleRecordingClick() {
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({
+    stream = await navigator.mediaDevices.getUserMedia({
       audio: true,
       video: { width: 1280, height: 720 }
     });
