@@ -12,6 +12,14 @@ const CommentSchema = new mongoose.Schema({
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
+  },
+  user: {
+    type: String,
+    required: "userName is required"
+  },
+  avatarUrl: {
+    type: String,
+    required: "avatarUrl is required"
   }
 });
 

@@ -1,6 +1,7 @@
 import fs from "fs";
 import routes from "../routes";
 import Video from "../models/Video";
+import User from "../models/User";
 import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
@@ -137,12 +138,15 @@ export const postAddComment = async (req, res) => {
   try {
     const {
       params: { id },
-      body: { comment }
+      body: { comment },
+      user: { name, avatarUrl }
     } = req;
     const video = await Video.findById(id);
     const newComment = await Comment.create({
       text: comment,
-      creator: req.user.id
+      creator: req.user.id,
+      user: name,
+      avatarUrl
     });
     video.comments.push(newComment.id);
     video.save();

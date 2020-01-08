@@ -19,12 +19,19 @@ block content
             a(href=routes.userDetail(video.creator.id))=video.creator.name
         .video__comments
             if video.comments.length <= 1
-                span.video__comments-number #{video.comments.length} comment
+                span.video__comments-number
+                    span#jsFakeComment=video.comments.length
+                    |   comment
             else 
-                span.video__comments-number #{video.comments.length} comments
+                span.video__comments-number
+                    span#jsFakeComment=video.comments.length
+                    |   comments
             form.add__comment#jsAddComment
                 input(type="text", placeholder="Add Comment")
-            ul.video__comments-list
-                each comment in video.comments
+            ul.video__comments-list#jsCommentList
+                each comment in video.comments.reverse()
                     li
-                        span=comment.text
+                        span=comment.text 
+                        span.user__info 
+                            span.comment-username=comment.user
+                            img.comment-avatar#jsCommentAvatar(src=`/${comment.avatarUrl}`)
