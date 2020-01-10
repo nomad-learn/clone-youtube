@@ -1,7 +1,6 @@
 import fs from "fs";
 import routes from "../routes";
 import Video from "../models/Video";
-import User from "../models/User";
 import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
@@ -150,6 +149,22 @@ export const postAddComment = async (req, res) => {
     });
     video.comments.push(newComment.id);
     video.save();
+    res.status(200);
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
+
+// Del Comment
+
+export const postDelComment = async (req, res) => {
+  const {
+    params: { id }
+  } = req;
+  try {
+    const video = await Video.findById(id);
     res.status(200);
   } catch (error) {
     res.status(400);

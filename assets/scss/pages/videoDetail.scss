@@ -90,39 +90,56 @@
             flex-direction: column;
             align-items: flex-end;
             li{
+                display: flex;
+                align-items: center;
                 background-color: #84B1ED;
                 width: fit-content;
                 text-align: center;
-                padding: 7px 10px;
+                padding: 10px 10px;
                 color: white;
                 border-radius: 10px;
                 border-bottom-right-radius: 0;
                 &:not(:last-child){
-                    margin-bottom: 10px;
+                    margin-bottom: 15px;
                 }
                 position: relative;
+                .del__comment{
+                    input{
+                        margin-right: 5px;
+                        padding: 1px;
+                        outline: none;
+                        border: none;
+                        background-color: transparent;
+                        cursor: pointer;
+                        font-size: 8px;
+                    }
+                }
                 .user__info{
-                    background-color: #bac7a7;
-                    border-radius: 10px;
-                    border-bottom-left-radius: 0;
-                    width: 90px;
-                    padding: 2px 0;
+                    background-color: #b8d5fc;
+                    border-radius: 50px;
+                    width: 35px;
+                    height: 35px;
+                    // padding: 1px 1px 1px 40px;
                     position: absolute;
                     top: 0;
-                    right: -95px;
+                    right: -50px;
                     margin-left: auto;
                     margin-right: auto;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     .comment-avatar{
-                        width: 25px;
+                        width: 29px;
                         border-radius: 50%;
                     }
-                    .comment-username{
-                        color: white;
-                        margin-right: 5px;
-                        font-size: 13px;
+                    .nipple{
+                        position: absolute;
+                        left: -1.5px;
+                        width: 3px;
+                        height: 3px;
+                        border: 2px solid #b8d5fc;
+                        transform: rotate(45deg);
+                        z-index: -1;
                     }
                 }
             }

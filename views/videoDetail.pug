@@ -31,8 +31,9 @@ block content
                     input(type="text", placeholder="Add Comment")
                 ul.video__comments-list#jsCommentList
                     each comment in video.comments.reverse()
-                        li
+                        li#jsCommentLi
                             span=comment.text
-                            .user__info 
-                                span.comment-username=comment.user
-                                img.comment-avatar#jsCommentAvatar(src=`/${comment.avatarUrl}`)
+                            a(href=routes.userDetail(comment.creator))
+                                .user__info
+                                    .nipple
+                                    img.comment-avatar(src=`/${comment.avatarUrl}`)
