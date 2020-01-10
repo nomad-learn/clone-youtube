@@ -41,6 +41,7 @@ const REGISTER_VIEW = "/:id/view";
 const ADD_COMMENT = "/:id/comment";
 const DEL_COMMENT = "/:id/delete-comment";
 const DEL_BUTTON = "/delete-comment";
+const DEL_REALTIME = "/:id/realtime-comment";
 
 const routes = {
   home: HOME,
@@ -88,7 +89,8 @@ const routes = {
   registerView: REGISTER_VIEW,
   addComment: ADD_COMMENT,
   delComment: DEL_COMMENT,
-  delBtn: DEL_BUTTON
+  delBtn: DEL_BUTTON,
+  realTimeDel: DEL_REALTIME
 };
 
 export default routes;

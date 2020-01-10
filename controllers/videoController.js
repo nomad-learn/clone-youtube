@@ -2,7 +2,6 @@ import fs from "fs";
 import routes from "../routes";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
-import User from "../models/User";
 
 export const home = async (req, res) => {
   try {
@@ -163,13 +162,32 @@ export const postAddComment = async (req, res) => {
 export const postDelComment = async (req, res) => {
   const {
     params: { id },
-    body: { postComment }
+    body: { postCommentId }
   } = req;
   try {
-    const comment = await Comment.findOne({ text: postComment });
+    const comment = await Comment.findOne({ _id: postCommentId });
     const video = await Video.findById(id);
     await video.comments.remove(comment.id);
-    await Comment.deleteOne({ text: postComment });
+    await Comment.deleteOne({ _id: postCommentId });
+    video.save();
+    res.status(200);
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
+
+export const postRealTimeDel = async (req, res) => {
+  const {
+    params: { id },
+    body: { realTimeText }
+  } = req;
+  try {
+    const comment = await Comment.findOne({ text: realTimeText });
+    const video = await Video.findById(id);
+    await video.comments.remove(comment.id);
+    await Comment.deleteOne({ text: realTimeText });
     video.save();
     res.status(200);
   } catch (error) {

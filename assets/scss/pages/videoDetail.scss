@@ -95,7 +95,7 @@
                 background-color: #84B1ED;
                 width: fit-content;
                 text-align: center;
-                padding: 10px 10px;
+                padding: 10px 10px 10px 7px;
                 color: white;
                 border-radius: 10px;
                 border-bottom-right-radius: 0;
@@ -103,16 +103,14 @@
                     margin-bottom: 15px;
                 }
                 position: relative;
-                .del__comment{
-                    input{
-                        margin-right: 5px;
-                        padding: 1px;
-                        outline: none;
-                        border: none;
-                        background-color: transparent;
-                        cursor: pointer;
-                        font-size: 8px;
-                    }
+                button{
+                    margin-right: 7px;
+                    padding: 1px;
+                    outline: none;
+                    border: none;
+                    background-color: transparent;
+                    cursor: pointer;
+                    font-size: 8px;
                 }
                 .user__info{
                     background-color: #b8d5fc;
