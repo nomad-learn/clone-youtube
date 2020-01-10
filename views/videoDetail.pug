@@ -32,6 +32,8 @@ block content
                 ul.video__comments-list#jsCommentList
                     each comment in video.comments.reverse()
                         li#jsCommentLi
+                            if loggedUser.id == comment.creator
+                                    button.jsDelBtn ❌
                             span=comment.text
                             a(href=routes.userDetail(comment.creator))
                                 .user__info

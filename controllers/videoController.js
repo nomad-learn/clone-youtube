@@ -2,6 +2,7 @@ import fs from "fs";
 import routes from "../routes";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
+import User from "../models/User";
 
 export const home = async (req, res) => {
   try {
@@ -134,12 +135,12 @@ export const registerView = async (req, res) => {
 // Add Comment
 
 export const postAddComment = async (req, res) => {
+  const {
+    params: { id },
+    body: { comment },
+    user: { name, avatarUrl }
+  } = req;
   try {
-    const {
-      params: { id },
-      body: { comment },
-      user: { name, avatarUrl }
-    } = req;
     const video = await Video.findById(id);
     const newComment = await Comment.create({
       text: comment,
@@ -161,10 +162,15 @@ export const postAddComment = async (req, res) => {
 
 export const postDelComment = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
+    body: { postComment }
   } = req;
   try {
+    const comment = await Comment.findOne({ text: postComment });
     const video = await Video.findById(id);
+    await video.comments.remove(comment.id);
+    await Comment.deleteOne({ text: postComment });
+    video.save();
     res.status(200);
   } catch (error) {
     res.status(400);

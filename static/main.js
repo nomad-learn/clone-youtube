@@ -98,6 +98,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var axio
 
 /***/ }),
 
+/***/ "./assets/js/delComment.js":
+/*!*********************************!*\
+  !*** ./assets/js/delComment.js ***!
+  \*********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);\n\nvar addCommentForm = document.getElementById(\"jsAddComment\");\nvar delComment = document.querySelectorAll(\".jsDelBtn\");\nvar commentList = document.getElementById(\"jsCommentList\");\nvar commentNumber = document.getElementById(\"jsFakeComment\");\n\nfunction reduceNum() {\n  commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) - 1;\n}\n\nfunction deleteComment(eventLi) {\n  commentList.removeChild(eventLi);\n  reduceNum();\n}\n\nfunction handleDelete(e) {\n  var eventLi, postComment, commentId, response;\n  return regeneratorRuntime.async(function handleDelete$(_context) {\n    while (1) {\n      switch (_context.prev = _context.next) {\n        case 0:\n          console.dir(e);\n          eventLi = e.target.parentNode;\n          postComment = eventLi.children[1].textContent;\n          commentId = window.location.href.split(\"/videos/\")[1];\n          _context.next = 6;\n          return regeneratorRuntime.awrap(axios__WEBPACK_IMPORTED_MODULE_0___default()({\n            url: \"/api/\".concat(commentId, \"/delete-comment\"),\n            method: \"POST\",\n            data: {\n              postComment: postComment\n            }\n          }));\n\n        case 6:\n          response = _context.sent;\n\n          if (response.status === 200) {\n            deleteComment(eventLi);\n          }\n\n        case 8:\n        case \"end\":\n          return _context.stop();\n      }\n    }\n  });\n}\n\nfunction init() {\n  for (var i = 0; i < delComment.length; i += 1) {\n    delComment[i].addEventListener(\"click\", handleDelete);\n  }\n}\n\nif (addCommentForm) {\n  init();\n}\n\n//# sourceURL=webpack:///./assets/js/delComment.js?");
+
+/***/ }),
+
 /***/ "./assets/js/main.js":
 /*!***************************!*\
   !*** ./assets/js/main.js ***!
@@ -106,7 +118,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var axio
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/styles.scss */ \"./assets/scss/styles.scss\");\n/* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _videoPlayer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./videoPlayer */ \"./assets/js/videoPlayer.js\");\n/* harmony import */ var _videoPlayer__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_videoPlayer__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _recordingVideo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./recordingVideo */ \"./assets/js/recordingVideo.js\");\n/* harmony import */ var _recordingVideo__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_recordingVideo__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _addComment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./addComment */ \"./assets/js/addComment.js\");\n\n\n\n\n\n//# sourceURL=webpack:///./assets/js/main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/styles.scss */ \"./assets/scss/styles.scss\");\n/* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _videoPlayer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./videoPlayer */ \"./assets/js/videoPlayer.js\");\n/* harmony import */ var _videoPlayer__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_videoPlayer__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _recordingVideo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./recordingVideo */ \"./assets/js/recordingVideo.js\");\n/* harmony import */ var _recordingVideo__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_recordingVideo__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _addComment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./addComment */ \"./assets/js/addComment.js\");\n/* harmony import */ var _delComment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./delComment */ \"./assets/js/delComment.js\");\n\n\n\n\n\n\n//# sourceURL=webpack:///./assets/js/main.js?");
 
 /***/ }),
 
