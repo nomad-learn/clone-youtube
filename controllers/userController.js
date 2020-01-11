@@ -2,7 +2,6 @@
 import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
-import Video from "../models/Video";
 
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });

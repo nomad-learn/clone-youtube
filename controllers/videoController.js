@@ -1,4 +1,3 @@
-import fs from "fs";
 import routes from "../routes";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
@@ -102,6 +101,7 @@ export const deleteVideo = async (req, res) => {
     } else {
       //  mongodb data remove code
       await Video.findOneAndRemove({ _id: id });
+      // const delParams = {Bucket: "juntube1/video", Key: }
     }
   } catch (error) {
     console.log(error);
