@@ -2,6 +2,7 @@
 import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
+import Video from "../models/Video";
 
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
@@ -147,8 +148,9 @@ export const users = (req, res) => {
   res.render("users", { pageTitle: "Users" });
 };
 
-export const getMe = (req, res) => {
-  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
+export const getMe = async (req, res) => {
+  const user = await User.findById(req.user.id).populate("videos");
+  res.render("userDetail", { pageTitle: "User Detail", user });
 };
 
 export const userDetail = async (req, res) => {
@@ -176,7 +178,7 @@ export const postEditProfile = async (req, res) => {
     await User.findByIdAndUpdate(req.user.id, {
       name,
       email,
-      avatarUrl: file ? file.path : req.user.avatarUrl
+      avatarUrl: file ? file.location : req.user.avatarUrl
     });
     res.redirect(routes.me);
   } catch (error) {

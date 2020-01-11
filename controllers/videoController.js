@@ -36,10 +36,10 @@ export const getUpload = (req, res) =>
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
-    file: { path }
+    file: { location }
   } = req;
   const newVideo = await Video.create({
-    fileUrl: path,
+    fileUrl: location,
     title,
     description,
     creator: req.user.id
@@ -100,10 +100,6 @@ export const deleteVideo = async (req, res) => {
     if (video.creator != req.user.id) {
       throw Error();
     } else {
-      //  upload/videos data remove code
-      const fileUrl = await Video.find({ _id: id }, "fileUrl");
-      const fileUrlPath = fileUrl[0].fileUrl;
-      fs.unlinkSync(fileUrlPath);
       //  mongodb data remove code
       await Video.findOneAndRemove({ _id: id });
     }
