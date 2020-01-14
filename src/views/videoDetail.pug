@@ -17,8 +17,7 @@ block content
         .video__author
             |Upload by 
             a(href=routes.userDetail(video.creator.id))=video.creator.name
-        if loggedUser !== null
-            .video__comments Delete Button 추가(+기능(api))
+            .video__comments
                 if video.comments.length <= 1
                     span.video__comments-number
                         span#jsFakeComment=video.comments.length
@@ -28,7 +27,10 @@ block content
                         span#jsFakeComment=video.comments.length
                         |   comments
                 form.add__comment#jsAddComment
-                    input(type="text", placeholder="Add Comment")
+                    if loggedUser !== null
+                        input(type="text", placeholder="Add Comment")
+                    if loggedUser === null
+                        input                      
                 ul.video__comments-list#jsCommentList
                     each comment in video.comments.reverse()
                         li#jsCommentLi(data-id=comment.id)
