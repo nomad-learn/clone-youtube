@@ -17,27 +17,27 @@ block content
         .video__author
             |Upload by 
             a(href=routes.userDetail(video.creator.id))=video.creator.name
-            .video__comments
-                if video.comments.length <= 1
-                    span.video__comments-number
-                        span#jsFakeComment=video.comments.length
-                        |   comment
-                else 
-                    span.video__comments-number
-                        span#jsFakeComment=video.comments.length
-                        |   comments
-                form.add__comment#jsAddComment
-                    if loggedUser !== null
-                        input(type="text", placeholder="Add Comment")
-                    if loggedUser === null
-                        input                      
-                ul.video__comments-list#jsCommentList
-                    each comment in video.comments.reverse()
-                        li#jsCommentLi(data-id=comment.id)
-                            if loggedUser.id == comment.creator
-                                    button.jsDelBtn ❌
-                            span=comment.text
-                            a(href=routes.userDetail(comment.creator))
-                                .user__info
-                                    .nipple
-                                    img.comment-avatar(src=comment.avatarUrl)
+        .video__comments
+            if video.comments.length <= 1
+                span.video__comments-number
+                    span#jsFakeComment=video.comments.length
+                    |   comment
+            else 
+                span.video__comments-number
+                    span#jsFakeComment=video.comments.length
+                    |   comments
+            form.add__comment#jsAddComment
+                if loggedUser !== null
+                    input(type="text", placeholder="Add Comment")
+                if loggedUser === null
+                    span                    
+            ul.video__comments-list#jsCommentList
+                each comment in video.comments.reverse()
+                    li#jsCommentLi(data-id=comment.id)
+                        if loggedUser.id == comment.creator
+                                button.jsDelBtn ❌
+                        span=comment.text
+                        a(href=routes.userDetail(comment.creator))
+                            .user__info
+                                .nipple
+                                img.comment-avatar(src=comment.avatarUrl)
