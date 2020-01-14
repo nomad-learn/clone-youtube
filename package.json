@@ -55,8 +55,7 @@
     "copyAll": "xcopy .\\src\\static .\\build\\static\\ /s /y && xcopy .\\src\\views .\\build\\views\\ /s /y",
     "buildAll": "npm run build:server && npm run build:assets && npm run copyAll",
     "prebuild": "rmdir /s /q build",
-    "start": "node build/init.js",
-    "prestart": "npm run buildAll"
+    "start": "PRODUCTION=true node build/init.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
