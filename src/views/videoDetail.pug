@@ -27,8 +27,7 @@ block content
                     span#jsFakeComment=video.comments.length
                     |   comments
             form.add__comment#jsAddComment
-                if loggedUser !== null
-                    input(type="text", placeholder="Add Comment")        
+                input(type="text", placeholder="Add Comment")        
             ul.video__comments-list#jsCommentList
                 each comment in video.comments.reverse()
                     li#jsCommentLi(data-id=comment.id)
