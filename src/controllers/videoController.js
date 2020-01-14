@@ -136,21 +136,18 @@ export const postAddComment = async (req, res) => {
     user: { name, avatarUrl }
   } = req;
   try {
-    if (req.user) {
-      const video = await Video.findById(id);
-      const newComment = await Comment.create({
-        text: comment,
-        creator: req.user.id,
-        user: name,
-        avatarUrl
-      });
-      video.comments.push(newComment.id);
-      video.save();
-    }
+    const video = await Video.findById(id);
+    const newComment = await Comment.create({
+      text: comment,
+      creator: req.user.id,
+      user: name,
+      avatarUrl
+    });
+    video.comments.push(newComment.id);
+    video.save();
     res.status(200);
   } catch (error) {
     res.status(400);
-    res.redirect(routes.home);
   } finally {
     res.end();
   }
