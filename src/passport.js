@@ -28,7 +28,7 @@ passport.use(
     {
       clientID: process.env.FB_ID,
       clientSecret: process.env.FB_SECRET,
-      callbackURL: `http://localhost:4000${routes.facebookCallback}`,
+      callbackURL: `https://morning-basin-30498.herokuapp.com${routes.facebookCallback}`,
       profileFields: ["id", "displayName", "photos", "email"],
       scope: ["public-profile", "email"]
     },
@@ -41,7 +41,7 @@ passport.use(
     {
       clientID: process.env.KAKAO_ID,
       clientSecret: process.env.KAKAO_SECRET,
-      callbackURL: `http://localhost:4000${routes.kakaoCallback}`,
+      callbackURL: `https://morning-basin-30498.herokuapp.com${routes.kakaoCallback}`,
       profileFields: ["id", "displayName", "email", "profile_image"],
       scope: ["profile", "account_email"]
     },
