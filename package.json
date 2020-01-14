@@ -52,8 +52,10 @@
     "dev:assets": "cd src && cross-env WEBPACK_ENV=development webpack -w",
     "build:assets": "cd src && cross-env WEBPACK_ENV=production webpack",
     "build:server": "babel src --out-dir build --ignore src/assets,src/static,src/webpack.config.js",
-    "build": "npm run build:server && npm run build:assets",
-    "start": "node build/init.js"
+    "copyAll": "xcopy src\\views build\\views\\ /e /s && xcopy src\\static build\\static\\ /e /s",
+    "build": "npm run build:server && npm run build:assets && npm run copyAll",
+    "del": "rmdir /s /q build",
+    "start": "node build\\init.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
