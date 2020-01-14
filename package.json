@@ -5,6 +5,7 @@
   "main": "index.js",
   "author": "Juno",
   "dependencies": {
+    "@babel/cli": "^7.8.3",
     "@babel/core": "^7.7.5",
     "@babel/node": "^7.7.4",
     "@babel/polyfill": "^7.7.0",
@@ -47,10 +48,14 @@
     "webpack-cli": "^3.3.10"
   },
   "scripts": {
-    "dev:server": "nodemon --exec babel-node init.js --ignore 'scss'",
-    "dev:assets": "cross-env WEBPACK_ENV=development webpack -w",
-    "build:assets": "cross-env WEBPACK_ENV=production webpack",
-    "ngrok": "ngrok http 4000"
+    "dev:server": "nodemon --exec babel-node src/init.js --ignore 'scss'",
+    "dev:assets": "cd src && cross-env WEBPACK_ENV=development webpack -w",
+    "build:assets": "cd src && cross-env WEBPACK_ENV=production webpack",
+    "build:server": "babel src --out-dir build --ignore src/assets,src/static,src/webpack.config.js",
+    "copyAll": "xcopy .\\src\\static .\\build\\static\\ /s /y && xcopy .\\src\\views .\\build\\views\\ /s /y",
+    "buildAll": "npm run build:server && npm run build:assets && npm run copyAll",
+    "prebuild": "rmdir /s /q build",
+    "start": "node build/init.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
