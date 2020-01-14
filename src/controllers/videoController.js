@@ -135,8 +135,8 @@ export const postAddComment = async (req, res) => {
     body: { comment },
     user: { name, avatarUrl }
   } = req;
-  if (req.user) {
-    try {
+  try {
+    if (req.user) {
       const video = await Video.findById(id);
       const newComment = await Comment.create({
         text: comment,
@@ -146,12 +146,13 @@ export const postAddComment = async (req, res) => {
       });
       video.comments.push(newComment.id);
       video.save();
-      res.status(200);
-    } catch (error) {
-      res.status(400);
-    } finally {
-      res.end();
     }
+    res.status(200);
+  } catch (error) {
+    res.status(400);
+    res.redirect(routes.home);
+  } finally {
+    res.end();
   }
 };
 
