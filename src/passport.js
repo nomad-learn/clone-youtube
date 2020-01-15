@@ -12,12 +12,16 @@ import {
 
 passport.use(User.createStrategy());
 
+console.log(process.env.PRODUCTION);
+
 passport.use(
   new GithubStrategy(
     {
       clientID: process.env.GH_ID,
       clientSecret: process.env.GH_SECRET,
-      callbackURL: `https://morning-basin-30498.herokuapp.com${routes.githubCallback}`
+      callbackURL: process.env.PRODUCTION
+        ? `https://morning-basin-30498.herokuapp.com${routes.githubCallback}`
+        : `http://localhost:4000${routes.githubCallback}`
     },
     githubLoginCallback
   )
@@ -28,7 +32,9 @@ passport.use(
     {
       clientID: process.env.FB_ID,
       clientSecret: process.env.FB_SECRET,
-      callbackURL: `https://morning-basin-30498.herokuapp.com${routes.facebookCallback}`,
+      callbackURL: process.env.PRODUCTION
+        ? `https://morning-basin-30498.herokuapp.com${routes.facebookCallback}`
+        : `http://localhost:4000${routes.facebookCallback}`,
       profileFields: ["id", "displayName", "photos", "email"],
       scope: ["public-profile", "email"]
     },
@@ -41,7 +47,9 @@ passport.use(
     {
       clientID: process.env.KAKAO_ID,
       clientSecret: process.env.KAKAO_SECRET,
-      callbackURL: `https://morning-basin-30498.herokuapp.com${routes.kakaoCallback}`,
+      callbackURL: process.env.PRODUCTION
+        ? `https://morning-basin-30498.herokuapp.com${routes.kakaoCallback}`
+        : `http://localhost:4000${routes.kakaoCallback}`,
       profileFields: ["id", "displayName", "email", "profile_image"],
       scope: ["profile", "account_email"]
     },

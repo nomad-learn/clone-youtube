@@ -50,11 +50,12 @@
   "scripts": {
     "dev:server": "nodemon --exec babel-node src/init.js --ignore 'scss'",
     "dev:assets": "cd src && cross-env WEBPACK_ENV=development webpack -w",
+    "dev:start": "npm run dev:server && npm run dev:assets",
     "build:assets": "cd src && cross-env WEBPACK_ENV=production webpack",
     "build:server": "babel src --out-dir build --ignore src/assets,src/static,src/webpack.config.js",
     "copyAll": "cp -R src/views build && cp -R src/static build",
     "build": "npm run build:server && npm run build:assets && npm run copyAll",
-    "start": "node build/init.js"
+    "start": "PRODUCTION=true node build/init.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
