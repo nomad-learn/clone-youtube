@@ -2,7 +2,6 @@ import express from "express";
 import routes from "../routes";
 import {
   userDetail,
-  users,
   postEditProfile,
   getEditProfile,
   getChangePassword,
@@ -11,8 +10,6 @@ import {
 import { onlyPrivate, uploadAvatar } from "../middlewares";
 
 const userRouter = express.Router();
-
-userRouter.get(routes.users, users);
 
 //  Edit profile
 userRouter.get(routes.editProfile, onlyPrivate, getEditProfile);

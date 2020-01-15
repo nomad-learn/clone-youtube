@@ -1,4 +1,5 @@
 import express from "express";
+import flash from "express-flash";
 import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
@@ -42,6 +43,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 app.use(localsMiddleware);
 

@@ -12,8 +12,6 @@ import {
 
 passport.use(User.createStrategy());
 
-console.log(process.env.PRODUCTION);
-
 passport.use(
   new GithubStrategy(
     {

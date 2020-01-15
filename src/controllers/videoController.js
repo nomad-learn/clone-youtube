@@ -26,13 +26,11 @@ export const search = async (req, res) => {
   res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
 
-export const videos = (req, res) =>
-  res.render("videos", { pageTitle: "Videos" });
-
 export const getUpload = (req, res) =>
   res.render("upload", { pageTitle: "Upload" });
 
 export const postUpload = async (req, res) => {
+  req.flash("info", "Upload Complete");
   const {
     body: { title, description },
     file: { location }
@@ -83,9 +81,11 @@ export const postEditVideo = async (req, res) => {
     body: { title, description }
   } = req;
   try {
+    req.flash("success", "Edit video Complete");
     await Video.findOneAndUpdate({ _id: id }, { title, description });
     res.redirect(routes.videoDetail(id));
   } catch (error) {
+    req.flash("error", "Edit video failed");
     res.redirect(routes.home);
   }
 };
@@ -103,7 +103,9 @@ export const deleteVideo = async (req, res) => {
       await Video.findOneAndRemove({ _id: id });
       // const delParams = {Bucket: "juntube1/video", Key: }
     }
+    req.flash("success", "Delete complete");
   } catch (error) {
+    req.flash("error", "Delete failed: Error");
     console.log(error);
   }
   res.redirect(routes.home);

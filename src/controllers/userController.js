@@ -12,10 +12,12 @@ export const postJoin = async (req, res, next) => {
     body: { name, email, password, password2 }
   } = req;
   if (password !== password2) {
+    req.flash("error", "Password don't match");
     res.status(400);
     res.render("join", { pageTitle: "Join" });
   } else {
     try {
+      req.flash("success", "Successful sign up");
       const user = await User({
         name,
         email
@@ -23,6 +25,7 @@ export const postJoin = async (req, res, next) => {
       await User.register(user, password);
       next();
     } catch (error) {
+      req.flash("error", "Failed to join");
       console.log(error);
       res.redirect(routes.home);
     }
@@ -34,12 +37,17 @@ export const getLogin = (req, res) =>
 
 export const postLogin = passport.authenticate("local", {
   successRedirect: routes.home,
-  failureRedirect: routes.login
+  failureRedirect: routes.login,
+  successFlash: "Wellcome!!",
+  failureFlash: "Failed to Login please check on password and email"
 });
 
 //  github authentication
 
-export const githubLogin = passport.authenticate("github");
+export const githubLogin = passport.authenticate("github", {
+  successFlash: "Wellcome!!",
+  failureFlash: "Failed to Login please check on password and email"
+});
 
 export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
@@ -70,7 +78,10 @@ export const postGithubLogin = (req, res) => {
 
 //  facebook authentication
 
-export const facebookLogin = passport.authenticate("facebook");
+export const facebookLogin = passport.authenticate("facebook", {
+  successFlash: "Wellcome!!",
+  failureFlash: "Failed to Login please check on password and email"
+});
 
 export const facebookLoginCallback = async (_, __, profile, cb) => {
   console.log(profile);
@@ -104,7 +115,9 @@ export const postFacebookLogin = (req, res) => {
 //  Kakao authentication
 
 export const kakaoLogin = passport.authenticate("kakao", {
-  failureRedirect: "#!/login"
+  failureRedirect: "#!/login",
+  successFlash: "Wellcome!!",
+  failureFlash: "Failed to Login please check on password and email"
 });
 
 export const kakaoLoginCallback = async (_, __, profile, cb) => {
@@ -140,6 +153,7 @@ export const postKakaoLogin = (req, res) => {
 
 export const logout = (req, res) => {
   req.logout();
+  req.flash("info", "Logged out");
   res.redirect(routes.home);
 };
 
@@ -179,8 +193,10 @@ export const postEditProfile = async (req, res) => {
       email,
       avatarUrl: file ? file.location : req.user.avatarUrl
     });
+    req.flash("success", "Profile edit complete");
     res.redirect(routes.me);
   } catch (error) {
+    req.flash("error", "Profile edit failed");
     res.redirect(`/users${routes.editProfile}`);
   }
 };
@@ -195,13 +211,16 @@ export const postChangePassword = async (req, res) => {
   } = req;
   try {
     if (newPassword !== newPassword2) {
+      req.flash("error", "Password don't match");
       res.status(400);
       res.redirect(`/users${routes.changePassword}`);
       return;
     }
     await req.user.changePassword(oldPassword, newPassword);
+    req.flash("success", "Change password complete");
     res.redirect(routes.me);
   } catch (error) {
+    req.flash("error", "Error");
     res.status(400);
     res.redirect(`/users${routes.changePassword}`);
   }
