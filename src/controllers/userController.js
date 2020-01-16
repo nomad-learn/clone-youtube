@@ -45,7 +45,6 @@ export const postLogin = passport.authenticate("local", {
 //  github authentication
 
 export const githubLogin = passport.authenticate("github", {
-  successFlash: "Wellcome!!",
   failureFlash: "Failed to Login please check on password and email"
 });
 
@@ -73,13 +72,13 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
 };
 
 export const postGithubLogin = (req, res) => {
+  req.flash("success", "Welcome!!");
   res.redirect(routes.home);
 };
 
 //  facebook authentication
 
 export const facebookLogin = passport.authenticate("facebook", {
-  successFlash: "Wellcome!!",
   failureFlash: "Failed to Login please check on password and email"
 });
 
@@ -109,6 +108,7 @@ export const facebookLoginCallback = async (_, __, profile, cb) => {
 };
 
 export const postFacebookLogin = (req, res) => {
+  req.flash("success", "Welcome!!");
   res.redirect(routes.home);
 };
 
@@ -116,7 +116,6 @@ export const postFacebookLogin = (req, res) => {
 
 export const kakaoLogin = passport.authenticate("kakao", {
   failureRedirect: "#!/login",
-  successFlash: "Wellcome!!",
   failureFlash: "Failed to Login please check on password and email"
 });
 
@@ -148,6 +147,7 @@ export const kakaoLoginCallback = async (_, __, profile, cb) => {
 };
 
 export const postKakaoLogin = (req, res) => {
+  req.flash("success", "Welcome!!");
   res.redirect(routes.home);
 };
 

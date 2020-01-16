@@ -81,8 +81,8 @@ export const postEditVideo = async (req, res) => {
     body: { title, description }
   } = req;
   try {
-    req.flash("success", "Edit video Complete");
     await Video.findOneAndUpdate({ _id: id }, { title, description });
+    req.flash("success", "Edit video Complete");
     res.redirect(routes.videoDetail(id));
   } catch (error) {
     req.flash("error", "Edit video failed");

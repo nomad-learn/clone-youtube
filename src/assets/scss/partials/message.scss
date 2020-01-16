@@ -1,23 +1,73 @@
+@keyframes fadeIn {
+  0%{
+    opacity: 0;
+    transform: translatey(0);
+  }
+  5%{
+    opacity: 0.3;
+    transform: translatey(0);
+  }
+  10%{
+    opacity: 1;
+    transform: translatey(0);
+  }
+  90%{
+    opacity: 1;
+    transform: translatey(0);
+  }
+  95%{
+    opacity: 0.3;
+    transform: translatey(0);
+  }
+  97%{
+    opacity: 0;
+    transform: translatey(0);
+  }
+  100%{
+    opacity: 0;
+    transform: translatey(-1000px);
+  }
+
+}
+
+
+.flash-message__box{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.26);
+  z-index: 4;
+  animation: fadeIn 2s linear forwards;
+}
 .flash-message__container{
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    max-width: 300px;
+    max-height: 100px;
     z-index: 9;
     padding: 20px;
-    text-align: center;
-    // animation: flashAnimation 5s ease-in-out forwards;
-    &.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    animation: fadeIn 2s linear forwards;
+    &.error{
       background-color: #e74c3c;
     }
-    &.success {
+    &.success{
       background-color: #2ecc71;
     }
-    &.info {
-      background-color: #f1c40f;
+    &.info{
+      background-color: #f9ca24;
     }
     .flash-message__text {
       color: white;
-      font-size: 14px;
+      font-size: 20px;
     }
 }
