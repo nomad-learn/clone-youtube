@@ -1,3 +1,4 @@
+import "@babel/polyfill";
 import express from "express";
 import flash from "express-flash";
 import morgan from "morgan";
@@ -9,7 +10,6 @@ import mongoose from "mongoose";
 import session from "express-session";
 import path from "path";
 import MongoStore from "connect-mongo";
-import dotenv from "dotenv";
 import { localsMiddleware } from "./middlewares";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
@@ -18,8 +18,6 @@ import apiRouter from "./routers/apiRouter";
 import routes from "./routes";
 
 import "./passport";
-
-dotenv.config();
 
 const app = express();
 
