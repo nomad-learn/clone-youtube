@@ -1,9 +1,13 @@
 .header{
-    background-color: $red;
-    margin-bottom: 50px;
+    z-index: 9;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #d63031;
     height: 45px;
     box-shadow: 0 0 10px 1px rgb(68, 68, 68);
     .header__wrap{
+        width: 100%;
         display: grid;
         height: 100%;
         grid-template-columns: 1fr 2fr 1fr;
@@ -34,7 +38,8 @@
                     }
                 }
             }
-            &:last-child{
+            &:nth-child(3){
+                display: flex;
                 justify-content: center;
                 ul{ 
                     color: $white;

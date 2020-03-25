@@ -15,16 +15,17 @@
         position: absolute;
         background-color: black;
         width: 100%;
-        bottom: 0;
+        bottom: 3px;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         padding: 10px 20px;
         color: white;
         .videoPlayer__column{
             &:first-child{
+                align-self: center;
                 justify-self: flex-start;
                 position: relative;
-                span:not(:last-child){
+                span{
                     margin-right: 10px;
                     font-size: 17px;
                 }
@@ -40,14 +41,19 @@
                 }
             }
             &:nth-child(2){
+                align-self: center;
                 justify-self: center;
                 span{
-                    font-size: 20px;
+                    font-size: 17px;
                 }
             }
             &:last-child{
+                align-self: center;
                 justify-self: flex-end;
                 font-size: 17px;
+                .fullscreenBtn{
+                    margin-left: 15px;
+                }
             }
             i{
                 cursor: pointer;

@@ -54,7 +54,10 @@ export const videoDetail = async (req, res) => {
     const video = await Video.findById(id)
       .populate("creator")
       .populate("comments");
-    res.render("videoDetail", { pageTitle: "Video Detail", video });
+    const createAt = JSON.stringify(video.createdAt)
+      .split('"')[1]
+      .split("T")[0];
+    res.render("videoDetail", { pageTitle: "Video Detail", video, createAt });
   } catch (error) {
     res.redirect(routes.home);
   }
@@ -65,6 +68,7 @@ export const getEditVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
+    // eslint-disable-next-line eqeqeq
     if (video.creator != req.user.id) {
       throw Error();
     } else {
@@ -96,6 +100,7 @@ export const deleteVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
+    // eslint-disable-next-line eqeqeq
     if (video.creator != req.user.id) {
       throw Error();
     } else {

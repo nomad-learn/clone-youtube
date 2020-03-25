@@ -1,11 +1,13 @@
 import passport from "passport";
 import GithubStrategy from "passport-github";
 import KakaoStrategy from "passport-kakao";
+import GoogleStrategy from "passport-google-oauth20";
 import User from "./models/User";
 import routes from "./routes";
 import {
   githubLoginCallback,
-  kakaoLoginCallback
+  kakaoLoginCallback,
+  googleLoginCallback
 } from "./controllers/userController";
 
 passport.use(User.createStrategy());
@@ -20,6 +22,20 @@ passport.use(
         : `http://localhost:4000${routes.githubCallback}`
     },
     githubLoginCallback
+  )
+);
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+      callbackURL: process.env.PRODUCTION
+        ? `https://juntube.herokuapp.com${routes.googleCallback}`
+        : `http://localhost:4000${routes.googleCallback}`,
+      scope: ["profile", "email"]
+    },
+    googleLoginCallback
   )
 );
 

@@ -22,7 +22,19 @@
                 font-weight: 500;
             }
         }
+        .secession-label {
+            font-family: monospace;
+            font-weight: 700;
+            font-size: 11px;
+            margin-bottom: 3%;
+            lala {
+                color: red;
+            }
+        }
         input[type="submit"] {
+            &.secession {
+                background-color: rgb(223, 70, 50);
+            }
             background-color: rgb(90, 112, 240);
             border-radius: 5px;
             color: white;

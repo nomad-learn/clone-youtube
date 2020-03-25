@@ -11,10 +11,12 @@ import {
   githubLogin,
   postGithubLogin,
   getMe,
-  facebookLogin,
-  postFacebookLogin,
   kakaoLogin,
-  postKakaoLogin
+  postKakaoLogin,
+  googleLogin,
+  postGoogleLogin,
+  getSecession,
+  postSecession
 } from "../controllers/userController";
 import { onlyPublic, onlyPrivate } from "../middlewares";
 
@@ -25,6 +27,9 @@ globalRouter.post(routes.join, onlyPublic, postJoin, postLogin);
 
 globalRouter.get(routes.login, onlyPublic, getLogin);
 globalRouter.post(routes.login, onlyPublic, postLogin);
+
+globalRouter.get(routes.secession, onlyPrivate, getSecession);
+globalRouter.post(routes.secession, postSecession, logout);
 
 globalRouter.get(routes.home, home);
 globalRouter.get(routes.search, search);
@@ -40,12 +45,12 @@ globalRouter.get(
   postGithubLogin
 );
 
-//  Facebook Log In
-globalRouter.get(routes.facebook, facebookLogin);
+//  Google Log In
+globalRouter.get(routes.google, googleLogin);
 globalRouter.get(
-  routes.facebookCallback,
-  passport.authenticate("facebook", { failureRedirect: "/login" }),
-  postFacebookLogin
+  routes.googleCallback,
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  postGoogleLogin
 );
 
 //  Kakao Log In

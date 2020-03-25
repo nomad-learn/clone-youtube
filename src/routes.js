@@ -3,6 +3,7 @@ const HOME = "/";
 const JOIN = "/join";
 const LOGIN = "/login";
 const LOGOUT = "/logout";
+const SECESSION = "/secession";
 const SEARCH = "/search";
 
 // Users
@@ -26,10 +27,9 @@ const DELETE_VIDEO = "/:id/delete";
 const GITHUB = "/auth/github";
 const GITHUB_CALLBACK = "/auth/github/callback";
 
-// Facebook
-
-const FB = "/auth/facebook";
-const FB_CALLBACK = "/auth/facebook/callback";
+// Google
+const GOOGLE = "/auth/google";
+const GOOGLE_CALLBACK = "/auth/google/callback";
 
 // Kakao
 const KAKAO = "/auth/kakao";
@@ -48,6 +48,7 @@ const routes = {
   join: JOIN,
   login: LOGIN,
   logout: LOGOUT,
+  secession: SECESSION,
   search: SEARCH,
   users: USERS,
   userDetail: id => {
@@ -81,8 +82,8 @@ const routes = {
   },
   github: GITHUB,
   githubCallback: GITHUB_CALLBACK,
-  facebook: FB,
-  facebookCallback: FB_CALLBACK,
+  google: GOOGLE,
+  googleCallback: GOOGLE_CALLBACK,
   kakao: KAKAO,
   kakaoCallback: KAKAO_CALLBACK,
   api: API,

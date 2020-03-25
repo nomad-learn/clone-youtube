@@ -78,28 +78,26 @@ export const postGithubLogin = (req, res) => {
 
 //  facebook authentication
 
-export const facebookLogin = passport.authenticate("facebook", {
+export const googleLogin = passport.authenticate("google", {
   failureFlash: "Failed to Login please check on password and email"
 });
 
-export const facebookLoginCallback = async (_, __, profile, cb) => {
-  console.log(profile);
+export const googleLoginCallback = async (_, __, profile, cb) => {
   const {
-    _json: { id, name, email }
+    _json: { sub: id, picture: avatarUrl, email, name }
   } = profile;
   try {
     const user = await User.findOne({ email });
     if (user) {
-      user.facebookId = id;
-      user.avatarUrl = `https://graph.facebook.com/${id}/picture?type=large`;
+      user.googleId = id;
       user.save();
       return cb(null, user);
     }
     const newUser = await User.create({
       email,
       name,
-      facebookId: id,
-      avatarUrl: `https://graph.facebook.com/${id}/picture?type=large`
+      googleId: id,
+      avatarUrl
     });
     return cb(null, newUser);
   } catch (error) {
@@ -107,7 +105,7 @@ export const facebookLoginCallback = async (_, __, profile, cb) => {
   }
 };
 
-export const postFacebookLogin = (req, res) => {
+export const postGoogleLogin = (req, res) => {
   req.flash("success", "Welcome!!");
   res.redirect(routes.home);
 };
@@ -223,5 +221,33 @@ export const postChangePassword = async (req, res) => {
     req.flash("error", "Error");
     res.status(400);
     res.redirect(`/users${routes.changePassword}`);
+  }
+};
+
+// Secession account
+export const getSecession = (req, res) => {
+  const {
+    user: { email }
+  } = req;
+  const id = email.split("@")[0];
+  res.render("secession", { id });
+};
+
+export const postSecession = async (req, res, next) => {
+  const {
+    body: { email, verify },
+    user: { email: loggedEmail }
+  } = req;
+  const id = email.split("@")[0];
+  try {
+    if (verify === `delete account/${id}` && email === loggedEmail) {
+      await User.findOneAndDelete({ email });
+      next();
+    } else {
+      res.redirect(routes.secession);
+    }
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.secession);
   }
 };

@@ -1,4 +1,5 @@
 .video__container{
+    font-family: sans-serif;
     display: block;
     margin-right: auto;
     margin-left: auto;
@@ -29,9 +30,7 @@
             margin-bottom: 30px; 
         }
         .edit-btn:active{
-            margin: 1px 0 0 1px;
-            font-size: 13px;
-            background-color: rgb(78, 78, 250);
+            background-color: rgb(56, 56, 245);
         }
         .video__createdAt, .video__view {
             margin-bottom: 10px;

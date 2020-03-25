@@ -10,7 +10,7 @@ block content
             if loggedUser !== null
                 if loggedUser.id === video.creator.id
                     a(href=routes.editVideo(video.id)).edit-btn Edit video
-            h6.video__createdAt=video.createdAt 
+            h6.video__createdAt=createAt
             span.video__view=`views ${video.view}` 
             h5.video__title=video.title
             p.video__description= video.description

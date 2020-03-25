@@ -1,0 +1,68 @@
+@media (max-width: 505px) {
+    body{
+        .header {
+            .header__wrap{
+                grid-template-columns: 0.8fr 1.2fr 2fr;
+                .header__column{
+                    &:nth-child(2) {
+                        width: 100%;
+                        input{
+                            width: 100%;
+                        }
+                    }
+                    &:nth-child(3){
+                        ul{
+                            font-size: 13px;
+                            li:not(:last-child){
+                                margin-right: 10px;
+                            }
+                            .headerImg {
+                                width: 25px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        main,
+        .searchPage{
+            .videos,
+            .search__videos {
+                display: block;
+                .videoBlock{
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+        .videoPlayer {
+            .videoPlayer__controls {
+                .videoPlayer__column{
+                    &:first-child{
+                        span{
+                            font-size: 13px
+                        }
+                    }
+                    i{
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+        .form-container {
+            form {
+                width: 70%;
+            }
+            a{
+                width: 70%;
+            }
+        }
+        .social-login{
+            .social-login__box{
+                button{
+                    width: 70%;
+                }
+            }
+        }
+    }
+}

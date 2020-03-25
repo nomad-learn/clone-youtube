@@ -1,0 +1,9 @@
+extends layouts/main
+
+block content
+    .form-container
+        form(action=routes.secession method="post")
+            input(type="email" name="email" placeholder="email" required=true)
+            label(for="verify" class="secession-label") Write: #[lala delete account/#{id}]
+            input(type="text" id="verify" name="verify" placeholder="Please write the same")
+            input(type="submit" value="secession") 
