@@ -91,11 +91,12 @@
             li{
                 display: flex;
                 align-items: center;
-                background-color: #84B1ED;
+                background-color: white;
+                box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.267);
                 width: fit-content;
                 text-align: center;
                 padding: 10px 10px 10px 7px;
-                color: white;
+                color: black;
                 border-radius: 10px;
                 border-bottom-right-radius: 0;
                 &:not(:last-child){
@@ -112,10 +113,11 @@
                     font-size: 8px;
                 }
                 .user__info{
-                    background-color: #b8d5fc;
+                    background-color: white;
                     border-radius: 50px;
                     width: 35px;
                     height: 35px;
+                    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.267);
                     // padding: 1px 1px 1px 40px;
                     position: absolute;
                     top: 0;
@@ -134,7 +136,8 @@
                         left: -1.5px;
                         width: 3px;
                         height: 3px;
-                        border: 2px solid #b8d5fc;
+                        border: 2px solid white;
+                        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.267);
                         transform: rotate(45deg);
                         z-index: -1;
                     }
