@@ -1,6 +1,6 @@
 mixin videoPlayer(video={})
     .videoPlayer#jsVideoPlayer
-        video#jsVideo(src=video.src)
+        video#jsVideo(src=video.src, playsinline)
         .videoPlayer__controls
             .videoPlayer__column
                 span#jsCurrentTime 00:00:00
