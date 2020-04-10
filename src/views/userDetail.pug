@@ -4,7 +4,10 @@ include mixins/videoBlock
 block content
     .user-profile
         .user-profile__header
-            img.avatar(src=user.avatarUrl)
+            if user.avatarUrl
+                img.avatar(src=user.avatarUrl)
+            else
+                img.avatar(src="/userImg/unnamed.jpg")
             h4.profile__username=user.name
         if loggedUser !== null
             if user.id === loggedUser.id
@@ -22,5 +25,6 @@ block content
                         id: item.id,
                         title: item.title,
                         view: item.view,
-                        videoFile: item.fileUrl
+                        videoFile: item.fileUrl,
+                        thumbnail: item.thumbnailUrl
                     })

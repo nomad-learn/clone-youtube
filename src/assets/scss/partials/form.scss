@@ -56,9 +56,13 @@
             padding: 10px 20px;
         }
         .form-container__file-upload{
-            display: flex;
             margin-bottom: 12px;
-            align-items: center;
+            .file-upload__column{
+                display: flex;
+                &:not(:last-child){
+                    margin-bottom: 10px;
+                }
+            }
             label {
                 font-weight: 600;
                 font-size: 16px;

@@ -42,6 +42,15 @@
                 }
             }
         }
+        .videos{
+            .videoBlock{
+                display: flex;
+                justify-content: center;
+                a{
+                    width:70%;
+                }
+            }
+        }
         .videoPlayer {
             .videoPlayer__controls {
                 .videoPlayer__column{
@@ -55,6 +64,9 @@
                     }
                 }
             }
+        }
+        .video__sideBlock{
+            display: none;
         }
         .form-container {
             form {

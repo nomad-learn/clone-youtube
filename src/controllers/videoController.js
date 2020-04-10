@@ -13,12 +13,12 @@ export const home = async (req, res) => {
 
 export const search = async (req, res) => {
   const {
-    query: { term: searchingBy }
+    query: { term: searchingBy },
   } = req;
   let videos = [];
   try {
     videos = await Video.find({
-      title: { $regex: searchingBy, $options: "i" }
+      title: { $regex: searchingBy, $options: "i" },
     });
   } catch (error) {
     console.log(error);
@@ -33,13 +33,17 @@ export const postUpload = async (req, res) => {
   req.flash("info", "Upload Complete");
   const {
     body: { title, description },
-    file: { location }
+    files: {
+      uploadVideo: [{ location: fileUrl }],
+      uploadThumbnail: [{ location: thumbnailUrl }],
+    },
   } = req;
   const newVideo = await Video.create({
-    fileUrl: location,
+    fileUrl,
+    thumbnailUrl,
     title,
     description,
-    creator: req.user.id
+    creator: req.user.id,
   });
   req.user.videos.push(newVideo.id);
   req.user.save();
@@ -49,22 +53,29 @@ export const postUpload = async (req, res) => {
 export const videoDetail = async (req, res) => {
   try {
     const {
-      params: { id }
+      params: { id },
     } = req;
+    const sideVideos = await Video.find({}).sort({ _id: -1 });
     const video = await Video.findById(id)
       .populate("creator")
       .populate("comments");
     const createAt = JSON.stringify(video.createdAt)
       .split('"')[1]
       .split("T")[0];
-    res.render("videoDetail", { pageTitle: "Video Detail", video, createAt });
+    res.render("videoDetail", {
+      pageTitle: "Video Detail",
+      video,
+      createAt,
+      detail: true,
+      sideVideos,
+    });
   } catch (error) {
     res.redirect(routes.home);
   }
 };
 export const getEditVideo = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
   try {
     const video = await Video.findById(id);
@@ -82,7 +93,7 @@ export const getEditVideo = async (req, res) => {
 export const postEditVideo = async (req, res) => {
   const {
     params: { id },
-    body: { title, description }
+    body: { title, description },
   } = req;
   try {
     await Video.findOneAndUpdate({ _id: id }, { title, description });
@@ -96,7 +107,7 @@ export const postEditVideo = async (req, res) => {
 
 export const deleteVideo = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
   try {
     const video = await Video.findById(id);
@@ -120,7 +131,7 @@ export const deleteVideo = async (req, res) => {
 
 export const registerView = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
   try {
     const video = await Video.findById(id);
@@ -140,7 +151,7 @@ export const postAddComment = async (req, res) => {
   const {
     params: { id },
     body: { comment },
-    user: { name, avatarUrl }
+    user: { name, avatarUrl },
   } = req;
   try {
     const video = await Video.findById(id);
@@ -148,7 +159,7 @@ export const postAddComment = async (req, res) => {
       text: comment,
       creator: req.user.id,
       user: name,
-      avatarUrl
+      avatarUrl: avatarUrl || null,
     });
     video.comments.push(newComment.id);
     video.save();
@@ -165,7 +176,7 @@ export const postAddComment = async (req, res) => {
 export const postDelComment = async (req, res) => {
   const {
     params: { id },
-    body: { postCommentId }
+    body: { postCommentId },
   } = req;
   try {
     const comment = await Comment.findOne({ _id: postCommentId });
@@ -184,7 +195,7 @@ export const postDelComment = async (req, res) => {
 export const postRealTimeDel = async (req, res) => {
   const {
     params: { id },
-    body: { realTimeText }
+    body: { realTimeText },
   } = req;
   try {
     const comment = await Comment.findOne({ text: realTimeText });

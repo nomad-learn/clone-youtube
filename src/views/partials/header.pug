@@ -15,7 +15,10 @@ header.header
                         a(href=routes.login) Log in
                 else
                     li
-                        img.headerImg#jsAvatar(src=loggedUser.avatarUrl)
+                        if loggedUser.avatarUrl
+                            img.headerImg#jsAvatar(src=loggedUser.avatarUrl)
+                        else
+                            img.headerImg#jsAvatar(src="/userImg/unnamed.jpg")
                         a(href=routes.me) Profile
                     li
                         a(href=`/videos${routes.upload}`) Upload

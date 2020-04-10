@@ -8,11 +8,12 @@ const fullscreenBtn = document.getElementById("jsFullscreenBtn");
 const currentTime = document.getElementById("jsCurrentTime");
 const totalTime = document.getElementById("jsTotalTime");
 const volumeRange = document.getElementById("jsVolumeRange");
+const loading = document.getElementById("jsLoading");
 
 const registerView = () => {
   const videoId = window.location.href.split("/videos/")[1];
   fetch(`/api/${videoId}/view`, {
-    method: "POST"
+    method: "POST",
   });
 };
 
@@ -55,7 +56,7 @@ function handleFullscreenBtn() {
     videoContainer.requestFullscreen();
     fullscreenBtn.innerHTML = '<i class="fas fa-compress-alt"></i>';
     videoPlayer.addEventListener("click", controlBoxHidden);
-    fullscreenBtn.addEventListener("pointerup", e => {
+    fullscreenBtn.addEventListener("pointerup", (e) => {
       if (e.type === "pointerup") {
         videoPlayer.removeEventListener("click", controlBoxHidden);
       }
@@ -87,8 +88,13 @@ function setCurrentTime() {
 }
 
 async function setTotalTime() {
-  const blob = await fetch(videoPlayer.src).then(response => response.blob());
+  const blob = await fetch(videoPlayer.src).then((response) => response.blob());
   const duration = await getBlobDuration(blob);
+  if (duration) {
+    loading.style.display = "none";
+  } else {
+    loading.style.display = "flex";
+  }
   const formatTotalTime = formatData(duration);
   totalTime.innerHTML = formatTotalTime;
   setInterval(setCurrentTime, 1000);

@@ -28,6 +28,7 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 app.use(bodyParser.json());
 app.use("/static", express.static(path.join(__dirname, "static")));
+app.use("/userImg", express.static(path.join(__dirname, "userImg")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan("dev"));
@@ -36,7 +37,7 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     resave: true,
     saveUninitialized: false,
-    store: new CokieStore({ mongooseConnection: mongoose.connection })
+    store: new CokieStore({ mongooseConnection: mongoose.connection }),
   })
 );
 app.use(passport.initialize());

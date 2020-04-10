@@ -24,7 +24,7 @@ async function handleDelete(e) {
   const response = await axios({
     url: `/api/${commentId}/delete-comment`,
     method: "POST",
-    data: { postCommentId }
+    data: { postCommentId },
   });
   if (response.status === 200) {
     deleteComment(eventLi);
@@ -39,8 +39,8 @@ async function realTimeDel(e) {
     url: `/api/${videoId}/realtime-comment`,
     method: "POST",
     data: {
-      realTimeText
-    }
+      realTimeText,
+    },
   });
   if (response.status === 200) {
     deleteComment(targetLi);
@@ -53,7 +53,7 @@ const addNumber = () => {
   commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) + 1;
 };
 
-const addComment = comment => {
+const addComment = (comment) => {
   const li = document.createElement("li");
   const span = document.createElement("span");
   const div = document.createElement("div");
@@ -77,14 +77,14 @@ const addComment = comment => {
   addNumber();
 };
 
-const sendComment = async comment => {
+const sendComment = async (comment) => {
   const videoId = window.location.href.split("/videos/")[1];
   const response = await axios({
     url: `/api/${videoId}/comment`,
     method: "POST",
     data: {
-      comment
-    }
+      comment,
+    },
   });
   if (response.status === 200) {
     addComment(comment);
@@ -93,7 +93,7 @@ const sendComment = async comment => {
 
 function handleSubmit(e) {
   e.preventDefault();
-  const commentInput = addCommentForm.querySelector("input");
+  const commentInput = document.getElementById("jsAddInput");
   const comment = commentInput.value;
   sendComment(comment);
   commentInput.value = "";

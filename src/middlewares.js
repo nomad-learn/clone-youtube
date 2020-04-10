@@ -5,25 +5,28 @@ import routes from "./routes";
 
 const s3 = new aws.S3({
   accessKeyId: process.env.AWS_ID,
-  secretAccessKey: process.env.AWS_SECRET
+  secretAccessKey: process.env.AWS_SECRET,
 });
 
 const multerVideo = multer({
   storage: multerS3({
     s3,
     acl: "public-read",
-    bucket: "juntube1/video"
-  })
+    bucket: process.env.PRODUCTION ? "juntube1/video" : "juntube1/dev_video",
+  }),
 });
 const multerAvatar = multer({
   storage: multerS3({
     s3,
     acl: "public-read",
-    bucket: "juntube1/avatar"
-  })
+    bucket: process.env.PRODUCTION ? "juntube1/avatar" : "juntube1/dev_avatar",
+  }),
 });
 
-export const uploadVideo = multerVideo.single("uploadFile");
+export const uploadVideo = multerVideo.fields([
+  { name: "uploadVideo", maxCount: 1 },
+  { name: "uploadThumbnail", maxCount: 1 },
+]);
 export const uploadAvatar = multerAvatar.single("avatar");
 
 export const localsMiddleware = (req, res, next) => {

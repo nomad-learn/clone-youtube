@@ -1,10 +1,21 @@
 extends layouts/main
 include mixins/videoPlayer
+include mixins/videoBlock
 
 block content
+    .video__sideBlock
+        each item in sideVideos
+            +videoBlock({
+                id: item.id,
+                title: item.title,
+                view: item.view,
+                videoFile: item.fileUrl,
+                thumbnail: item.thumbnailUrl
+            })
     .video__container
         +videoPlayer({
-            src: video.fileUrl
+            src: video.fileUrl,
+            thumbnail: video.thumbnailUrl
         })
         .video__info
             if loggedUser !== null
@@ -28,7 +39,7 @@ block content
                     |   comments
             if loggedUser !== null
                 form.add__comment#jsAddComment
-                    input(type="text", placeholder="Add Comment")        
+                    input#jsAddInput(type="text", placeholder="Add Comment")        
             ul.video__comments-list#jsCommentList
                 each comment in video.comments.reverse()
                     li#jsCommentLi(data-id=comment.id)
@@ -39,4 +50,8 @@ block content
                         a(href=routes.userDetail(comment.creator))
                             .user__info
                                 .nipple
-                                img.comment-avatar(src=comment.avatarUrl)
+                                if comment.avatarUrl
+                                    img.comment-avatar(src=comment.avatarUrl)
+                                else
+                                    img.comment-avatar(src="/userImg/unnamed.jpg")
+

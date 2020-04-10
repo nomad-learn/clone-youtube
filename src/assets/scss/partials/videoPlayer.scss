@@ -1,13 +1,48 @@
 .videoPlayer {
+    position: relative;
     &:hover{
         .videoPlayer__controls{
             opacity: 1;
         }
     }
-    position: relative;
     video{
         width: 100%;
         max-width: 100%;
+    }
+    .loading{
+        background-color: rgba(0, 0, 0, 0.726);
+        border-radius: 5px;
+        position: absolute;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        width:100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .dot{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: none;
+            background-color: white;
+            &:not(:last-child) {
+                margin-right: 15px;
+            }
+            &:nth-child(1) {
+                animation: loading 2s linear infinite;
+            }
+            &:nth-child(2) {
+                animation: loading 2s linear 0.5s infinite;
+            }
+            &:nth-child(3) {
+                animation: loading 2s linear 1.0s infinite;
+            }
+            &:nth-child(4) {
+                animation: loading 2s linear 1.5s infinite;
+            }
+        }
     }
     .videoPlayer__controls{
         opacity: 0;
@@ -20,6 +55,7 @@
         grid-template-columns: repeat(3, 1fr);
         padding: 10px 20px;
         color: white;
+        border-radius: 5px;
         .videoPlayer__column{
             &:first-child{
                 align-self: center;
@@ -28,16 +64,6 @@
                 span{
                     margin-right: 10px;
                     font-size: 17px;
-                }
-            }
-            .volume__box{
-                display: inline;
-                position: relative;
-                &:hover{
-                    .videoPlayer__volumeRange-box{
-                        opacity: 1;
-                        pointer-events: unset;
-                    }
                 }
             }
             &:nth-child(2){
@@ -51,8 +77,18 @@
                 align-self: center;
                 justify-self: flex-end;
                 font-size: 17px;
-                .fullscreenBtn{
-                    margin-left: 15px;
+                display: grid;
+                grid-template-columns: repeat(2, 30px);
+                justify-content: center;
+                align-items: center;
+                .volume__box{
+                    position: relative;
+                    &:hover{
+                        .videoPlayer__volumeRange-box{
+                            opacity: 1;
+                            pointer-events: unset;
+                        }
+                    }
                 }
             }
             i{
@@ -66,5 +102,14 @@
         .videoPlayer__controls{
             opacity: 0;
         }
+    }
+}
+
+@keyframes loading {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
