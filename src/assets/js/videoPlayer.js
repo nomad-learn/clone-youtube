@@ -88,15 +88,14 @@ function setCurrentTime() {
 }
 
 async function setTotalTime() {
-  const blob = await fetch(videoPlayer.src)
-    .then((response) => response.url)
-    .then((data) => getBlobDuration(data));
+  const blob = await fetch(videoPlayer.src).then((response) => response.blob());
+  const duration = await getBlobDuration(blob);
   if (blob) {
     loading.style.display = "none";
   } else {
     loading.style.display = "flex";
   }
-  const formatTotalTime = formatData(blob);
+  const formatTotalTime = formatData(duration);
   totalTime.innerHTML = formatTotalTime;
   setInterval(setCurrentTime, 1000);
 }
