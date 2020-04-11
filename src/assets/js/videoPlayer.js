@@ -88,7 +88,11 @@ function setCurrentTime() {
 }
 
 async function setTotalTime() {
-  const blob = await fetch(videoPlayer.src).then((response) => response.blob());
+  const blob = await fetch(videoPlayer.src, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  }).then((response) => response.blob());
   const duration = await getBlobDuration(blob);
   if (duration) {
     loading.style.display = "none";
