@@ -1,4 +1,4 @@
 mixin message(message={})
-    .flash-message__box
     .flash-message__container(class=message.type)
+        .flash-message__status
         span.flash-message__text=message.text

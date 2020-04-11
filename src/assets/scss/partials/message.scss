@@ -1,73 +1,65 @@
 @keyframes fadeIn {
   0%{
-    opacity: 0;
-    transform: translatey(0);
+    transform: translateX(300px);
   }
-  5%{
-    opacity: 0.3;
-    transform: translatey(0);
+  15%{
+    transform: translateX(-20px);
   }
-  10%{
-    opacity: 1;
-    transform: translatey(0);
+  50%{
+    transform: translateX(-20px);
   }
-  90%{
-    opacity: 1;
-    transform: translatey(0);
-  }
-  95%{
-    opacity: 0.3;
-    transform: translatey(0);
-  }
-  97%{
-    opacity: 0;
-    transform: translatey(0);
+  85%{
+    transform: translateX(-20px);
   }
   100%{
-    opacity: 0;
-    transform: translatey(-1000px);
+    transform: translateX(300px);
   }
-
 }
 
-
-.flash-message__box{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.26);
-  z-index: 4;
-  animation: fadeIn 2s linear forwards;
-}
 .flash-message__container{
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    right: 20px;
+    bottom: 50px;
     margin: auto;
-    max-width: 300px;
-    max-height: 100px;
+    max-width: 350px;
+    max-height: 120px;
     z-index: 9;
-    padding: 20px;
+    padding: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    border-radius: 15px;
-    animation: fadeIn 2s linear forwards;
+    border-radius: 5px;
+    animation: fadeIn 5s linear forwards;
+    background-color: rgb(240, 240, 240);
+    border: 1.3px solid rgb(168, 168, 168);
+    .flash-message__status{
+      display: block;
+      width: 10px;
+      height:10px;
+      border-radius: 50%;
+      margin-bottom:6px;
+      background-color: rgba(143, 143, 143, 0.699);
+    }
     &.error{
-      background-color: #e74c3c;
+      .flash-message__status{
+        background-color: #e74c3c;
+      }
     }
     &.success{
-      background-color: #2ecc71;
+      .flash-message__status{
+        background-color: #2ecc71;
+      }
     }
     &.info{
-      background-color: #f9ca24;
+      .flash-message__status{
+        background-color: #f9ca24;
+      }
     }
     .flash-message__text {
-      color: white;
-      font-size: 20px;
+      border-top:1.2px solid rgb(211, 211, 211);
+      text-transform: uppercase;
+      padding: 10px;
+      color: rgb(34, 34, 34);
+      font-size: 18px;
     }
 }
