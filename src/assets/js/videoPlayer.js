@@ -88,18 +88,15 @@ function setCurrentTime() {
 }
 
 async function setTotalTime() {
-  const blob = await fetch(videoPlayer.src, {
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-  }).then((response) => response.blob());
-  const duration = await getBlobDuration(blob);
-  if (duration) {
+  const blob = await fetch(videoPlayer.src)
+    .then((response) => response.url)
+    .then((data) => getBlobDuration(data));
+  if (blob) {
     loading.style.display = "none";
   } else {
     loading.style.display = "flex";
   }
-  const formatTotalTime = formatData(duration);
+  const formatTotalTime = formatData(blob);
   totalTime.innerHTML = formatTotalTime;
   setInterval(setCurrentTime, 1000);
 }
