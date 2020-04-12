@@ -2,7 +2,8 @@ header.header
     .header__wrap
         .header__column
             a(href=routes.home)
-                i.fab.fa-youtube
+                i.fab.fa-youtube 
+                    span.siteTitle Juntube
         .header__column
             form(action=routes.search, method="get")
                 input(type="text", placeholder="Search by term...", name="term")

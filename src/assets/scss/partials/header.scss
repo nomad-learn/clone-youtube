@@ -3,8 +3,8 @@
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: #d63031;
-    height: 45px;
+    background-color: #353b48;
+    height: 55px;
     box-shadow: 0 0 10px 1px rgb(68, 68, 68);
     .header__wrap{
         width: 100%;
@@ -20,6 +20,11 @@
                 i{
                     color: $white;
                     font-size: 30px;
+                    span {
+                        vertical-align: middle;
+                        font-size: 20px;
+                        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                    }
                 }
             }
             &:nth-child(2){
