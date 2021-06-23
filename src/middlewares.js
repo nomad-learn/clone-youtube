@@ -1,36 +1,58 @@
+import { Storage } from "@google-cloud/storage";
 import multer from "multer";
-import multerS3 from "multer-s3";
-import aws from "aws-sdk";
 import routes from "./routes";
 
-const s3 = new aws.S3({
-  accessKeyId: process.env.AWS_ID,
-  secretAccessKey: process.env.AWS_SECRET,
+const storage = new Storage({
+  projectId: process.env.PROJECT_ID,
+  keyFilename: process.env.GCS_SRC,
 });
+
+const bucket = storage.bucket(process.env.STORAGE_BUCKET);
 
 const multerVideo = multer({
-  storage: multerS3({
-    s3,
-    acl: "public-read",
-    bucket: process.env.PRODUCTION ? "juntube1/video" : "juntube1/dev_video",
-  }),
-});
-const multerAvatar = multer({
-  storage: multerS3({
-    s3,
-    acl: "public-read",
-    bucket: process.env.PRODUCTION ? "juntube1/avatar" : "juntube1/dev_avatar",
-  }),
+  storage: multer.memoryStorage(),
 });
 
-export const uploadVideo = multerVideo.fields([
-  { name: "uploadVideo", maxCount: 1 },
-  { name: "uploadThumbnail", maxCount: 1 },
-]);
+const multerAvatar = multer({
+  storage: multer.memoryStorage(),
+});
+
+export const uploadVideo = multerVideo.single("uploadVideo");
 export const uploadAvatar = multerAvatar.single("avatar");
 
+export const uploadFileToStorage = (file) => {
+  return new Promise((resolve, reject) => {
+    if (!file) {
+      // eslint-disable-next-line prefer-promise-reject-errors
+      reject("No image file");
+    }
+    const fieldName = file.fieldname === "uploadVideo" ? "videos" : "avatars";
+    const newFileName = `${file.originalname}_${Date.now()}`;
+    const fileUpload = bucket.file(`${fieldName}/${newFileName}`);
+    const blobStream = fileUpload.createWriteStream({
+      metadata: {
+        contentType: file.mimetype,
+      },
+    });
+
+    blobStream.on("error", () => {
+      // eslint-disable-next-line prefer-promise-reject-errors
+      reject("Something is wrong! Unable to upload at the moment.");
+    });
+
+    blobStream.on("finish", () => {
+      // The public URL can be used to directly access the file via HTTP.
+      // eslint-disable-next-line no-undef
+      const url = `https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`;
+      resolve(url);
+    });
+
+    blobStream.end(file.buffer);
+  });
+};
+
 export const localsMiddleware = (req, res, next) => {
-  res.locals.siteName = "JunTube";
+  res.locals.siteName = "Wetube";
   res.locals.routes = routes;
   res.locals.loggedUser = req.user || null;
   next();

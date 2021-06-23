@@ -1,6 +1,7 @@
 import routes from "../routes";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
+import { uploadFileToStorage } from "../middlewares";
 
 export const home = async (req, res) => {
   try {
@@ -33,14 +34,11 @@ export const postUpload = async (req, res) => {
   req.flash("info", "Upload Complete");
   const {
     body: { title, description },
-    files: {
-      uploadVideo: [{ location: fileUrl }],
-      uploadThumbnail: [{ location: thumbnailUrl }],
-    },
+    file,
   } = req;
+  const fileUrl = await uploadFileToStorage(file);
   const newVideo = await Video.create({
     fileUrl,
-    thumbnailUrl,
     title,
     description,
     creator: req.user.id,

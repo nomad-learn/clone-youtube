@@ -7,7 +7,7 @@ import routes from "./routes";
 import {
   githubLoginCallback,
   kakaoLoginCallback,
-  googleLoginCallback
+  googleLoginCallback,
 } from "./controllers/userController";
 
 passport.use(User.createStrategy());
@@ -18,8 +18,8 @@ passport.use(
       clientID: process.env.GH_ID,
       clientSecret: process.env.GH_SECRET,
       callbackURL: process.env.PRODUCTION
-        ? `https://juntube.herokuapp.com${routes.githubCallback}`
-        : `http://localhost:4000${routes.githubCallback}`
+        ? `https://clonewetube.herokuapp.com${routes.githubCallback}`
+        : `http://localhost:4000${routes.githubCallback}`,
     },
     githubLoginCallback
   )
@@ -31,9 +31,9 @@ passport.use(
       clientID: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
       callbackURL: process.env.PRODUCTION
-        ? `https://juntube.herokuapp.com${routes.googleCallback}`
+        ? `https://clonewetube.herokuapp.com${routes.googleCallback}`
         : `http://localhost:4000${routes.googleCallback}`,
-      scope: ["profile", "email"]
+      scope: ["profile", "email"],
     },
     googleLoginCallback
   )
@@ -45,10 +45,10 @@ passport.use(
       clientID: process.env.KAKAO_ID,
       clientSecret: process.env.KAKAO_SECRET,
       callbackURL: process.env.PRODUCTION
-        ? `https://juntube.herokuapp.com${routes.kakaoCallback}`
+        ? `https://clonewetube.herokuapp.com${routes.kakaoCallback}`
         : `http://localhost:4000${routes.kakaoCallback}`,
       profileFields: ["id", "displayName", "email", "profile_image"],
-      scope: ["profile", "account_email"]
+      scope: ["profile", "account_email"],
     },
     kakaoLoginCallback
   )

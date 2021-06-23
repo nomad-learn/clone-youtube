@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import passport from "passport";
+import { uploadFileToStorage } from "../middlewares";
 import routes from "../routes";
 import User from "../models/User";
 
@@ -9,7 +10,7 @@ export const getJoin = (req, res) => {
 
 export const postJoin = async (req, res, next) => {
   const {
-    body: { name, email, password, password2 }
+    body: { name, email, password, password2 },
   } = req;
   if (password !== password2) {
     req.flash("error", "Password don't match");
@@ -20,7 +21,7 @@ export const postJoin = async (req, res, next) => {
       req.flash("success", "Successful sign up");
       const user = await User({
         name,
-        email
+        email,
       });
       await User.register(user, password);
       next();
@@ -39,18 +40,18 @@ export const postLogin = passport.authenticate("local", {
   successRedirect: routes.home,
   failureRedirect: routes.login,
   successFlash: "Wellcome!!",
-  failureFlash: "Failed to Login please check on password and email"
+  failureFlash: "Failed to Login please check on password and email",
 });
 
 //  github authentication
 
 export const githubLogin = passport.authenticate("github", {
-  failureFlash: "Failed to Login please check on password and email"
+  failureFlash: "Failed to Login please check on password and email",
 });
 
 export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
-    _json: { id, avatar_url: avatarUrl, name, email }
+    _json: { id, avatar_url: avatarUrl, name, email },
   } = profile;
   try {
     const user = await User.findOne({ email });
@@ -63,7 +64,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
       email,
       name,
       githubId: id,
-      avatarUrl
+      avatarUrl,
     });
     return cb(null, newUser);
   } catch (error) {
@@ -79,12 +80,12 @@ export const postGithubLogin = (req, res) => {
 //  facebook authentication
 
 export const googleLogin = passport.authenticate("google", {
-  failureFlash: "Failed to Login please check on password and email"
+  failureFlash: "Failed to Login please check on password and email",
 });
 
 export const googleLoginCallback = async (_, __, profile, cb) => {
   const {
-    _json: { sub: id, picture: avatarUrl, email, name }
+    _json: { sub: id, picture: avatarUrl, email, name },
   } = profile;
   try {
     const user = await User.findOne({ email });
@@ -97,7 +98,7 @@ export const googleLoginCallback = async (_, __, profile, cb) => {
       email,
       name,
       googleId: id,
-      avatarUrl
+      avatarUrl,
     });
     return cb(null, newUser);
   } catch (error) {
@@ -114,7 +115,7 @@ export const postGoogleLogin = (req, res) => {
 
 export const kakaoLogin = passport.authenticate("kakao", {
   failureRedirect: "#!/login",
-  failureFlash: "Failed to Login please check on password and email"
+  failureFlash: "Failed to Login please check on password and email",
 });
 
 export const kakaoLoginCallback = async (_, __, profile, cb) => {
@@ -122,8 +123,8 @@ export const kakaoLoginCallback = async (_, __, profile, cb) => {
     _json: {
       id,
       properties: { nickname, profile_image },
-      kakao_account: { email }
-    }
+      kakao_account: { email },
+    },
   } = profile;
   try {
     const user = await User.findOne({ email });
@@ -136,7 +137,7 @@ export const kakaoLoginCallback = async (_, __, profile, cb) => {
       email,
       name: nickname,
       kakaoId: id,
-      avatarUrl: profile_image
+      avatarUrl: profile_image,
     });
     return cb(null, newUser);
   } catch (error) {
@@ -166,7 +167,7 @@ export const getMe = async (req, res) => {
 
 export const userDetail = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
   try {
     const user = await User.findById(id).populate("videos");
@@ -183,13 +184,14 @@ export const getEditProfile = (req, res) => {
 export const postEditProfile = async (req, res) => {
   const {
     body: { name, email },
-    file
+    file,
   } = req;
   try {
+    const avatarUrl = await uploadFileToStorage(file);
     await User.findByIdAndUpdate(req.user.id, {
       name,
       email,
-      avatarUrl: file ? file.location : req.user.avatarUrl
+      avatarUrl: file ? avatarUrl : req.user.avatarUrl,
     });
     req.flash("success", "Profile edit complete");
     res.redirect(routes.me);
@@ -205,7 +207,7 @@ export const getChangePassword = (req, res) => {
 
 export const postChangePassword = async (req, res) => {
   const {
-    body: { oldPassword, newPassword, newPassword2 }
+    body: { oldPassword, newPassword, newPassword2 },
   } = req;
   try {
     if (newPassword !== newPassword2) {
@@ -227,7 +229,7 @@ export const postChangePassword = async (req, res) => {
 // Secession account
 export const getSecession = (req, res) => {
   const {
-    user: { email }
+    user: { email },
   } = req;
   const id = email.split("@")[0];
   res.render("secession", { id });
@@ -236,7 +238,7 @@ export const getSecession = (req, res) => {
 export const postSecession = async (req, res, next) => {
   const {
     body: { email, verify },
-    user: { email: loggedEmail }
+    user: { email: loggedEmail },
   } = req;
   const id = email.split("@")[0];
   try {

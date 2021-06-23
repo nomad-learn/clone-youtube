@@ -90,7 +90,7 @@ function setCurrentTime() {
 async function setTotalTime() {
   const blob = await fetch(videoPlayer.src).then((response) => response.blob());
   const duration = await getBlobDuration(blob);
-  if (blob) {
+  if (duration) {
     loading.style.display = "none";
   } else {
     loading.style.display = "flex";

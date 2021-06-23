@@ -10,9 +10,6 @@ block content
                 .file-upload__column
                     label(for="file") Video File :
                     input(type="file", id="file",  name="uploadVideo", required=true, accept="video/*, .mkv")
-                .file-upload__column
-                    label(for="poster") Thumbnail File :
-                    input(type="file", id="poster",  name="uploadThumbnail", required=true, accept="image/*, .png")
             input(type="text", placeholder="Title", name="title", required=true)
             textarea(name="description", placeholder="Description", required=true)
             input(type="submit", value="Upload Video")

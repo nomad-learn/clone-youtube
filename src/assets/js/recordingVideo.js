@@ -36,8 +36,8 @@ function recordingVideo() {
 async function handleRecordingClick() {
   try {
     stream = await navigator.mediaDevices.getUserMedia({
-      audio: true,
-      video: { width: 1280, height: 720 }
+      audio: false,
+      video: { width: 1280, height: 720 },
     });
     videoPreview.srcObject = stream;
     videoPreview.play();
