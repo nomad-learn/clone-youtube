@@ -31,21 +31,26 @@ export const getUpload = (req, res) =>
   res.render("upload", { pageTitle: "Upload" });
 
 export const postUpload = async (req, res) => {
-  req.flash("info", "Upload Complete");
   const {
     body: { title, description },
     file,
   } = req;
-  const fileUrl = await uploadFileToStorage(file);
-  const newVideo = await Video.create({
-    fileUrl,
-    title,
-    description,
-    creator: req.user.id,
-  });
-  req.user.videos.push(newVideo.id);
-  req.user.save();
-  res.redirect(routes.videoDetail(newVideo.id));
+  try {
+    const fileUrl = await uploadFileToStorage(file);
+    const newVideo = await Video.create({
+      fileUrl,
+      title,
+      description,
+      creator: req.user.id,
+    });
+    req.user.videos.push(newVideo.id);
+    req.user.save();
+    req.flash("info", "Upload Complete");
+    res.redirect(routes.videoDetail(newVideo.id));
+  } catch (error) {
+    req.flash("error", "Upload video failed");
+    res.redirect(routes.home);
+  }
 };
 
 export const videoDetail = async (req, res) => {

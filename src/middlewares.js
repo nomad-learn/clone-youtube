@@ -35,7 +35,8 @@ export const uploadFileToStorage = (file) => {
       },
     });
 
-    blobStream.on("error", () => {
+    blobStream.on("error", (err) => {
+      console.log(err);
       // eslint-disable-next-line prefer-promise-reject-errors
       reject("Something is wrong! Unable to upload at the moment.");
     });
