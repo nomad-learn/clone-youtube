@@ -56,7 +56,7 @@
     "dev:start": "npm run dev:server && npm run dev:assets",
     "build:assets": "cd src && cross-env WEBPACK_ENV=production webpack",
     "build:server": "babel src --out-dir build --ignore src/assets,src/static,src/webpack.config.js",
-    "copyAll": "cp -R src/views build && cp -R src/static build && cp -R src/userImg build && cp src/gcs.json build",
+    "copyAll": "cp -R src/views build && cp -R src/static build && cp -R src/userImg build",
     "build": "npm run build:server && npm run build:assets && npm run copyAll",
     "start": "PRODUCTION=true node build/init.js"
   },
