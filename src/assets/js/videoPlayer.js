@@ -88,16 +88,25 @@ function setCurrentTime() {
 }
 
 async function setTotalTime() {
-  const blob = await fetch(videoPlayer.src).then((response) => response.blob());
-  const duration = await getBlobDuration(blob);
-  if (duration) {
+  try {
+    const blob = await fetch(videoPlayer.src).then((response) => {
+      console.log(`response: ${JSON.stringify(response)}`);
+      return response.blob();
+    });
+    console.log(`blob: ${blob}`);
+    const duration = await getBlobDuration(blob);
+    console.log(`duration: ${duration}`);
+    if (duration) {
+      loading.style.display = "none";
+    } else {
+      loading.style.display = "flex";
+    }
+    const formatTotalTime = formatData(duration);
+    totalTime.innerHTML = formatTotalTime;
+    setInterval(setCurrentTime, 1000);
+  } catch (error) {
     loading.style.display = "none";
-  } else {
-    loading.style.display = "flex";
   }
-  const formatTotalTime = formatData(duration);
-  totalTime.innerHTML = formatTotalTime;
-  setInterval(setCurrentTime, 1000);
 }
 
 function handleVolumeControls() {

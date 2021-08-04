@@ -1,6 +1,7 @@
 import "@babel/polyfill";
 import express from "express";
 import flash from "express-flash";
+import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
@@ -23,6 +24,7 @@ const app = express();
 
 const CokieStore = MongoStore(session);
 
+app.use(cors());
 app.use(helmet());
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
