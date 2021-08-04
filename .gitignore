@@ -114,3 +114,4 @@ uploads
 build
 
 static
+gcs.json
