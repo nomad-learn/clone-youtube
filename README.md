@@ -1,4 +1,4 @@
-# Clone_Juntube
+# Clone_youtube
 
 Cloning Youtube with Vanilla and NodeJS
 
@@ -15,5 +15,8 @@ Cloning Youtube with Vanilla and NodeJS
 - [x] Video Detail
 - [x] Edit Video
 
- 
+## Self challenge:
 
+- [x] Delete user account
+- [x] showing sidebar in detail screen
+- [x] avatar showing with comment
